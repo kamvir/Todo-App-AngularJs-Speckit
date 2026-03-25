@@ -1,0 +1,55 @@
+<div class="page-header text-center">
+  <h1>To-Do List</h1>
+  <p class="text-muted">Manage tasks with AngularJS 1.x and local persistence.</p>
+</div>
+
+<div class="panel panel-default todo-shell">
+  <div class="panel-body">
+    <form class="form-inline todo-form" ng-submit="vm.addTask()" novalidate>
+      <div class="form-group todo-input-group" ng-class="{ 'has-error': vm.hasValidationError }">
+        <label class="sr-only" for="new-task-input">Task description</label>
+        <input
+          id="new-task-input"
+          type="text"
+          class="form-control input-lg"
+          placeholder="What needs to be done?"
+          ng-model="vm.newTaskDescription"
+          aria-describedby="task-validation-message">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">Add Task</button>
+    </form>
+
+    <p
+      id="task-validation-message"
+      class="help-block text-danger"
+      ng-if="vm.hasValidationError">{{ vm.validationMessage }}</p>
+
+    <div class="clearfix todo-toolbar">
+      <div class="btn-group pull-left" aria-label="Task filters">
+        <button type="button" class="btn btn-default" ng-class="{ active: vm.filterMode === 'all' }" ng-click="vm.setFilter('all')">All</button>
+        <button type="button" class="btn btn-default" ng-class="{ active: vm.filterMode === 'active' }" ng-click="vm.setFilter('active')">Active</button>
+        <button type="button" class="btn btn-default" ng-class="{ active: vm.filterMode === 'completed' }" ng-click="vm.setFilter('completed')">Completed</button>
+      </div>
+      <p class="pull-right todo-counter">
+        <strong>{{ vm.getIncompleteCount() }}</strong> task<span ng-if="vm.getIncompleteCount() !== 1">s</span> remaining
+      </p>
+    </div>
+
+    <div class="alert alert-info" ng-if="vm.todos.length === 0">
+      No tasks yet. Add your first task above.
+    </div>
+
+    <ul class="list-group todo-list" ng-if="vm.todos.length > 0">
+      <li class="list-group-item" ng-repeat="todo in vm.todos | todoStatus:vm.filterMode track by todo.id">
+        <todo-item todo="todo" on-toggle="vm.toggleTask(id)" on-delete="vm.deleteTask(id)"></todo-item>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<footer class="text-center todo-footer">
+  <p>
+    &copy; 2026 Created by Viraj Kamble ·
+    <a href="https://github.com/kamvir" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </p>
+</footer>

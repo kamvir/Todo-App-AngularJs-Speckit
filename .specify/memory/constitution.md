@@ -1,50 +1,78 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+
+- Version change: unknown -> 1.0.0
+- Modified principles:
+	- [PRINCIPLE_1_NAME] -> Architecture: Component-first or MVC (AngularJS 1.x)
+	- [PRINCIPLE_2_NAME] -> Language: ES5 (or ES6 via Babel)
+	- [PRINCIPLE_3_NAME] -> Style: John Papa AngularJS Style Guide
+	- [PRINCIPLE_4_NAME] -> Tooling: Gulp/Grunt + Bower/NPM
+	- [PRINCIPLE_5_NAME] -> Testing: Jasmine + Karma
+- Added sections: Constraints & Compatibility; Development Workflow
+- Removed sections: none
+- Templates updated: ✅ .specify/templates/plan-template.md
+										✅ .specify/templates/spec-template.md
+										✅ .specify/templates/tasks-template.md
+- Templates pending manual review: none
+- Follow-up TODOs: RATIFICATION_DATE set to TODO(RATIFICATION_DATE)
+-->
+
+# TodoList-App Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Architecture (NON-NEGOTIABLE)
+The project MUST use a Component-based architecture when targeting AngularJS 1.5+ (the `component()` API). For older 1.x codebases the MVC pattern using Controllers and Services is acceptable only when migration to components is impractical.
+- MUST organize UI units as single-responsibility components (template, controller, bindings, lifecycle hooks).
+- When controllers are used, prefer `controllerAs` syntax and avoid implicit `$scope` manipulation.
+Rationale: Component-based structure improves encapsulation, testability and eases incremental upgrades toward newer patterns.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Language & Syntax
+Source code MUST be written in ES5. ES6 may be used only if transpiled via a verified Babel build step. TypeScript and modern Angular (2+) language features are PROHIBITED.
+- MUST avoid decorators, advanced TypeScript types, and RxJS patterns from Angular 2+.
+Rationale: Keep runtime compatibility and minimize build complexity for legacy environments.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Style & Conventions
+Follow the John Papa AngularJS Style Guide as the authoritative style document.
+- MUST use consistent module naming, file organization, and injection annotations (`$inject`) to prevent minification issues.
+- One component/controller per file; name controllers as `XController` and components as `xComponent` per the guide.
+- Dependency injection must be explicit (array-annotated or `$inject`), and lint rules must enforce the guide.
+Rationale: Consistency reduces cognitive load, improves reviewability, and prevents common AngularJS pitfalls.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Tooling
+- Build: Use Gulp or Grunt for task automation (build, watch, test, lint, vendor injection).
+- Dependencies: Use Bower for front-end legacy packages when required, but keep `package.json` (npm) as the primary source for build tooling and scripts. Vendor packages added via Bower MUST be mirrored or recorded in `bower.json` and `package.json` where applicable.
+- Linting: Use ESLint (or JSHint if legacy) configured to enforce ES5 rules and John Papa conventions.
+- Tasks: Provide `gulp build`, `gulp test`, `gulp lint`, `gulp watch` (or their `grunt` equivalents).
+Rationale: Reproducible builds and standardized automation are critical for legacy code maintainability.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Testing (NON-NEGOTIABLE)
+- Unit tests MUST be written with Jasmine and executed via Karma in CI.
+- Coverage thresholds MUST be defined (minimum 70% lines, 70% functions), and failing the threshold blocks merges.
+- E2E tests may use Protractor where needed, but unit coverage is the primary gate.
+Rationale: Reliable unit testing prevents regressions in brittle, legacy AngularJS applications.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Constraints & Compatibility
+This constitution enforces the following constraints:
+- NO Angular 2+ / TypeScript / RxJS code is permitted anywhere in the repo.
+- NO React, Vue, Svelte, or other modern SPA frameworks are allowed.
+- Supported browsers and runtime environments MUST be documented in `README.md` and in the build matrix (CI) if legacy browser support is required.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow
+- Branching: Feature branches MUST follow `feature/NAME` naming. Release branches follow `release/x.y` and hotfixes `hotfix/x.y.z`.
+- Pull Requests: PRs MUST include passing `lint`, `test`, and `build` tasks in CI. PR description MUST reference failing tests fixed or new tests added.
+- Reviews: At least one maintainer review is REQUIRED for non-trivial changes. Large refactors require a migration plan and staged rollouts.
+- Dependency updates: Bower and npm updates MUST be reviewed; major library upgrades require compatibility testing and an explicit migration plan.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+Amendments to this constitution MUST be proposed as a documented change (issue + PR) and approved by a quorum of active repository maintainers. Amendments MUST include a migration plan for existing code where applicable.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Versioning policy:
+- MAJOR: Backward-incompatible governance changes (principle removals or redefinitions).
+- MINOR: New principle or mandatory section additions or material expansions.
+- PATCH: Clarifications, wording fixes, typos, or non-semantic refinements.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+Compliance review expectations:
+- Every PR touching source code MUST reference which principles are impacted and how the change complies with them.
+
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE) | **Last Amended**: 2026-03-25

@@ -31,7 +31,13 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Gates determined based on the constitution file. For projects following this repository's
+AngularJS legacy guidance the gate MUST verify:
+- Component vs MVC decision (1.5+ component API preferred)
+- Language constraints (ES5 or ES6 via Babel only; no TypeScript)
+- Style conformity (John Papa AngularJS Style Guide)
+- Tooling present (Gulp/Grunt tasks, bower.json / package.json)
+- Testing setup (Jasmine + Karma configuration present)
 
 ## Project Structure
 

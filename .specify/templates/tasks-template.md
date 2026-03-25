@@ -22,6 +22,7 @@ description: "Task list template for feature implementation"
 
 - **Single project**: `src/`, `tests/` at repository root
 - **Web app**: `backend/src/`, `frontend/src/`
+- **Frontend (AngularJS 1.x)**: `app/` or `src/app/` with `components/`, `services/`, `controllers/`, `templates/`, and `bower_components/` for legacy vendor assets
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
 - Paths shown below assume single project - adjust based on plan.md structure
 

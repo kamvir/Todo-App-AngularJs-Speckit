@@ -1,0 +1,8 @@
+{
+  "name": "angularjs-todo-app",
+  "private": true,
+  "dependencies": {
+    "angular": "1.8.3",
+    "bootstrap": "3.4.1"
+  }
+}

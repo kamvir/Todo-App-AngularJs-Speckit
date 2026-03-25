@@ -1,0 +1,13 @@
+node_modules/
+bower_components/
+coverage/
+dist/
+build/
+*.log
+.env*
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/

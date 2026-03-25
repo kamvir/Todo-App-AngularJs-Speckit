@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoApp">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AngularJS Todo List</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="app/styles/app.css">
+</head>
+<body>
+  <div class="container">
+    <todo-app></todo-app>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/services/todo.service.js"></script>
+  <script src="app/filters/todo-status.filter.js"></script>
+  <script src="app/components/todo-app/todo-app.component.js"></script>
+  <script src="app/components/todo-item/todo-item.component.js"></script>
+</body>
+</html>
