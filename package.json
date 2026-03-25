@@ -1,0 +1,24 @@
+{
+  "name": "angularjs-todo-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Legacy AngularJS 1.x Todo application",
+  "scripts": {
+    "test": "karma start --single-run",
+    "test:watch": "karma start",
+    "lint": "eslint app/**/*.js tests/unit/**/*.js",
+    "build": "gulp build",
+    "watch": "gulp watch"
+  },
+  "devDependencies": {
+    "angular": "1.8.3",
+    "angular-mocks": "1.8.3",
+    "eslint": "8.57.1",
+    "gulp": "4.0.2",
+    "jasmine-core": "5.7.1",
+    "jsdom": "25.0.1",
+    "karma": "6.4.4",
+    "karma-jasmine": "5.1.0",
+    "karma-jsdom-launcher": "19.0.0"
+  }
+}

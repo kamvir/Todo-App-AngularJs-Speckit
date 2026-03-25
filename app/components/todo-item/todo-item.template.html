@@ -1,0 +1,13 @@
+<div class="row todo-item-row">
+  <div class="col-xs-8 col-sm-9">
+    <div class="checkbox todo-checkbox">
+      <label>
+        <input type="checkbox" ng-checked="vm.todo.completed" ng-click="vm.handleToggle()">
+        <span ng-class="{ 'todo-completed': vm.todo.completed }">{{ vm.todo.description }}</span>
+      </label>
+    </div>
+  </div>
+  <div class="col-xs-4 col-sm-3 text-right">
+    <button type="button" class="btn btn-danger btn-sm" ng-click="vm.handleDelete()">Delete</button>
+  </div>
+</div>
